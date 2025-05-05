@@ -30,23 +30,31 @@ Componente visual que permite generar comprobantes de pago en formato PDF en bas
 
 ## Implementar componente a la paleta
 1.- Crear y Limpiar el proyecto.
+![Captura 1](capturas/imagen_2025-05-04_235614034.png)
 
 2.-Hacemos click derecho en la paleta y seleccionamos "palette manager".
+![Captura 2](capturas/imagen_2025-05-04_235634837.png)
 
 3.-Una vez dentro de este apartado selecciona "nueva categoria".
+![Captura 3](capturas/imagen_2025-05-04_235647904.png)
 
 4.-Te pedira darle un nombre a la categoria de tu paleta, asignale uno y dale ok.
+![Captura 4](capturas/imagen_2025-05-04_235658603.png)
 
 5.-Regresamos a la ventana anterior y seleccionamos Add from JAR.
+![Captura 5](capturas/imagen_2025-05-04_235707565.png)
 
 6.-En la carpeta del proyecto, para ser más precisos en la carpeta Dist debería aparecer el jar
+![Captura 6](capturas/imagen_2025-05-04_235720490.png)
 
 7.-Abrimos y debemos seleccionar “Prueba”.
+![Captura 7](capturas/imagen_2025-05-04_235733441.png)
 
 8.-Damos click en Next y elegimos en qué sección aparecerá el botón, nosotros creamos la sección llamada “Botón Comprobante”. Una vez seleccionado la sección finalizamos el proceso.
+![Captura 8](capturas/imagen_2025-05-04_235744435.png)
 
 9.-El botón ya deberia aparecer en la paleta.
-
+![Captura 9](capturas/imagen_2025-05-04_235755600.png)
 
 
 # Instrucciones de uso
