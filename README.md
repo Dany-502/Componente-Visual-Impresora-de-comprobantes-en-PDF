@@ -20,13 +20,17 @@ Componente visual que permite generar comprobantes de pago en formato PDF en bas
 # Instrucciones de implementación 
 
 ## Implementar JFrame de prueba
-1.-Descargar el archivo zip. Una vez descargado el .zip deberan descomprimirlo.
+## 1. Descargar el archivo zip. Una vez descargado el .zip deberan descomprimirlo.
+![Cap1](capturas/imagen_2025-05-05_025836553.png)
 
-2.-Posteriormente deberemos buscarlo en la pc desde Netbeans, para eso seleccionamos el apartado "abrir proyecto".
+## 2. Posteriormente deberemos buscarlo en la pc desde Netbeans, para eso seleccionamos el apartado "abrir proyecto".
+![Cap2](capturas/imagen_2025-05-05_025849584.png)
 
-3.-Busca el proyecto y abrelo.
+## 3. Busca el proyecto y abrelo.
+![Cap3](https://github.com/Dany-502/Componente-Visual-Impresora-de-comprobantes-en-PDF/blob/745d22ba7345cdaddaa297e888a883e9e580c9c8/capturas/Captura%20de%20pantalla%20(585).png)
 
-4.-Una vez abierto les deberia de salir esto:
+## 4. Una vez abierto les deberia de salir esto:
+![Cap4](capturas/imagen_2025-05-05_025907705.png)
 
 ## Implementar componente a la paleta
 ### 1. Crear y Limpiar el proyecto.
