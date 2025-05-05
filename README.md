@@ -19,7 +19,44 @@ Componente visual que permite generar comprobantes de pago en formato PDF en bas
 
 # Instrucciones de implementación 
 
+## Implementar JFrame de prueba
+1.-Descargar el archivo zip. Una vez descargado el .zip deberan descomprimirlo.
+
+2.-Posteriormente deberemos buscarlo en la pc desde Netbeans, para eso seleccionamos el apartado "abrir proyecto".
+
+3.-Busca el proyecto y abrelo.
+
+4.-Una vez abierto les deberia de salir esto:
+
+## Implementar componente a la paleta
+1.- Crear y Limpiar el proyecto.
+
+2.-Hacemos click derecho en la paleta y seleccionamos "palette manager".
+
+3.-Una vez dentro de este apartado selecciona "nueva categoria".
+
+4.-Te pedira darle un nombre a la categoria de tu paleta, asignale uno y dale ok.
+
+5.-Regresamos a la ventana anterior y seleccionamos Add from JAR.
+
+6.-En la carpeta del proyecto, para ser más precisos en la carpeta Dist debería aparecer el jar
+
+7.-Abrimos y debemos seleccionar “Prueba”.
+
+8.-Damos click en Next y elegimos en qué sección aparecerá el botón, nosotros creamos la sección llamada “Botón Comprobante”. Una vez seleccionado la sección finalizamos el proceso.
+
+9.-El botón ya deberia aparecer en la paleta.
+
+
+
 # Instrucciones de uso
+1.-Selecciona el componente desde la paleta.
+
+2.-Arrastralo a la posicion en donde quieres colocarlo dentro de tu JFrame
+
+3.-El boton tiene implementado métodos que detectan objetos de tipo label, combobox , textField y table. Por lo tanto no te preocupes en agregar manualmente los datos 
+
+4.-Ejecuta el codigo y revisa el resultado.
 
 # Métodos de la clase
 
@@ -249,3 +286,4 @@ private void crearPDFCompleto(String nombre, String direccion, String telefono, 
 Método encargado de construir el documento PDF utilizando la biblioteca "iText". Crea un archivo con nombre personalizado, añade logotipos, encabezados y datos del cliente, seguido de una tabla de productos con sus cantidades y precios. Luego muestra el total del pedido y un mensaje final. 
 
 # Video explicativo
+https://youtu.be/K6PsaPKJoDU?si=4Porj4kNKb9tt_M- 
