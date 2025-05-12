@@ -66,10 +66,6 @@ Componente visual que permite generar comprobantes de pago en formato PDF en bas
 
 2.-Arrastralo a la posicion en donde quieres colocarlo dentro de tu JFrame
 
-3.-El boton tiene implementado métodos que detectan objetos de tipo label, combobox , textField y table. Por lo tanto no te preocupes en agregar manualmente los datos 
-
-4.-Ejecuta el codigo y revisa el resultado.
-
 5.-El JFrame aceptara cuadros de texto con los nombres de:
 
 6.-Usted puede elegir qué producto va a vender desde el codigo
