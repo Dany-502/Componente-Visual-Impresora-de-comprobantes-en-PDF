@@ -65,20 +65,29 @@ Componente visual que permite generar comprobantes de pago en formato PDF en bas
 1.-Selecciona el componente desde la paleta.
 
 2.-Arrastralo a la posicion en donde quieres colocarlo dentro de tu JFrame
-
+![]()
 5.-El JFrame aceptara cuadros de texto con los nombres de:
+![Captura 10](https://github.com/Dany-502/Componente-Visual-Impresora-de-comprobantes-en-PDF/blob/d662aa64af2818b5cc02cf3cc91f4b9f0af53618/capturas/imagen_2025-05-11_234859411.png)
 
 6.-Usted puede elegir qué producto va a vender desde el codigo
+![Captura 11](https://github.com/Dany-502/Componente-Visual-Impresora-de-comprobantes-en-PDF/blob/d662aa64af2818b5cc02cf3cc91f4b9f0af53618/capturas/imagen_2025-05-11_234912981.png)
 
 7.-El botón recolecta los datos que estén en el Cuadro de texto y listo para usarse 
 
 ## Propiedades configurables
 - Cambiar el color del boton, el color de la letra del boton y el color del titulo del pdf
+
+![Captura 12](https://github.com/Dany-502/Componente-Visual-Impresora-de-comprobantes-en-PDF/blob/d662aa64af2818b5cc02cf3cc91f4b9f0af53618/capturas/imagen_2025-05-11_234919739.png)
+
 - Cambiar el titulo del PDF
+
+![Captura 13](https://github.com/Dany-502/Componente-Visual-Impresora-de-comprobantes-en-PDF/blob/d662aa64af2818b5cc02cf3cc91f4b9f0af53618/capturas/imagen_2025-05-11_234924513.png)
+
 - Cambiar el nombre de la tienda
 
-# Métodos de la clase
+![Captura 14](https://github.com/Dany-502/Componente-Visual-Impresora-de-comprobantes-en-PDF/blob/d662aa64af2818b5cc02cf3cc91f4b9f0af53618/capturas/imagen_2025-05-11_234929980.png)
 
+# Métodos de la clase
 ## Constructor
 ```java
 public BotonGenerarPDF() {
