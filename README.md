@@ -70,232 +70,218 @@ Componente visual que permite generar comprobantes de pago en formato PDF en bas
 
 4.-Ejecuta el codigo y revisa el resultado.
 
+5.-El JFrame aceptara cuadros de texto con los nombres de:
+
+6.-Usted puede elegir qué producto va a vender desde el codigo
+
+7.-El botón recolecta los datos que estén en el Cuadro de texto y listo para usarse 
+
+## Propiedades configurables
+- Cambiar el color del boton, el color de la letra del boton y el color del titulo del pdf
+- Cambiar el titulo del PDF
+- Cambiar el nombre de la tienda
+
 # Métodos de la clase
 
 ## Constructor
-
 ```java
-public Prueba() {
-  super("Generar Comprobante PDF");
-  setCursor(new Cursor(Cursor.HAND_CURSOR));
-  addActionListener(e -> generarPDF());
+public BotonGenerarPDF() {
+        configurarBoton();
+        this.addActionListener(e -> generarPDF());
     }
 ```
-El constructor de la clase Prueba configura el botón con el texto "Generar Comprobante PDF", le asigna un cursor de mano para mejorar la experiencia visual del usuario y le agrega un ActionListener. Este listener define la acción que debe ocurrir cuando el botón es presionado, en este caso, llamar al método generarPDF().
-
-## generarPDF()
-
+## Metodos Setters y Getters
 ```java
-    private void generarPDF() {
+   public BotonGenerarPDF() {
+        configurarBoton();
+        this.addActionListener(e -> generarPDF());
+    }
+    
+    public String getTituloPDF() {
+        return tituloPDF;
+    }
+
+    public void setTituloPDF(String tituloPDF) {
+        this.tituloPDF = tituloPDF;
+    }
+
+    public String getNombreTienda() {
+        return nombreTienda;
+    }
+
+    public void setNombreTienda(String nombreTienda) {
+        this.nombreTienda = nombreTienda;
+    }
+
+    public Color getColorTitulo() {
+        return colorTitulo;
+    }
+
+    public void setColorTitulo(Color colorTitulo) {
+        this.colorTitulo = colorTitulo;
+    }
+        public Color getColorFondo() {
+        return colorFondo;
+    }
+
+    public void setColorFondo(Color colorFondo) {
+        this.colorFondo = colorFondo;
+        this.setBackground(colorFondo); // Aplica el color inmediatamente
+    }
+
+    public Color getColorTexto() {
+        return colorTexto;
+    }
+
+    public void setColorTexto(Color colorTexto) {
+        this.colorTexto = colorTexto;
+        this.setForeground(colorTexto); // Aplica el color inmediatamente
+    }
+```
+Los métodos get y set permiten modificar o acceder a las propiedades privadas del botón, como:
+
+- Título principal del PDF.
+- Firma o nombre que aparece al final del documento.
+- Color del título en el PDF.
+- Color del fondo del botón.
+- Color del texto del botón.
+
+## Método configurarBoton()
+```java
+    private void configurarBoton() {
+        this.setText("Generar PDF");
+        this.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 12));
+        this.setBackground(colorFondo); // Usa la propiedad colorFondo
+        this.setForeground(colorTexto); // Usa la propiedad colorTexto
+        this.setFocusPainted(false);
+    }
+```
+Configura el texto, fuente, color de fondo, color del texto y apariencia del botón.
+
+## Método generarPDF()
+```java
+private void generarPDF() {
         try {
-            Window window = SwingUtilities.getWindowAncestor(this);
-            if (!(window instanceof JFrame)) {
-                JOptionPane.showMessageDialog(null, 
-                    "Error: El botón debe estar en un JFrame",
-                    "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            JFrame frame = (JFrame) window;
-
-            JTextField txtNombre = buscarCampoPorNombreDeEtiqueta(frame, "Nombre:");
-            JTextField txtAPaterno = buscarCampoPorNombreDeEtiqueta(frame, "Ap.Paterno:");
-            JTextField txtAMaterno = buscarCampoPorNombreDeEtiqueta(frame, "Ap.Materno:");
-            JTextField txtDireccion = buscarCampoPorNombreDeEtiqueta(frame, "Calle y numero:");
-            JTextField txtColonia = buscarCampoPorNombreDeEtiqueta(frame, "Colonia:");
-            JTextField txtTelefono = buscarCampoPorNombreDeEtiqueta(frame, "Telefono:");
-            JTextField txtNoOrden = buscarCampoPorNombreDeEtiqueta(frame, "No. Orden:");
-            JTextField txtFecha = buscarCampoPorNombreDeEtiqueta(frame, "Fecha Recibido:");
-            JComboBox<String> cbTienda = buscarComboBox(frame);
-            JTable tablaProductos = encontrarTabla(frame);
-            JTextField lblTotal = buscarCampoPorNombreDeEtiqueta(frame, "Total:");
+            JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+            JTextField txtNoPedido = buscarTextField(frame, "txtNoPedido");
+            JTextField txtNombre = buscarTextField(frame, "txtNombre");
+            JTextField txtPaterno = buscarTextField(frame, "txtPaterno");
+            JTextField txtMaterno = buscarTextField(frame, "txtMaterno");
+            JTextField txtTelefono = buscarTextField(frame, "txtTelefono");
+            JTextField txtDireccion = buscarTextField(frame, "txtDireccion");
+            JTextField txtPrecio = buscarTextField(frame, "txtPrecio");
             
-            if (txtNombre == null || txtDireccion == null || tablaProductos == null || lblTotal == null) {
-                JOptionPane.showMessageDialog(null, 
-                    "Faltan campos requeridos:\n" +
-                    (txtNombre == null ? "- Nombre\n" : "") +
-                    (txtDireccion == null ? "- Dirección\n" : "") +
-                    (tablaProductos == null ? "- Tabla de productos\n" : "") +
-                    (lblTotal == null ? "- Total\n" : ""),
-                    "Error", JOptionPane.ERROR_MESSAGE);
+            JComboBox<String> cmbProducto = null;
+            for (Component comp : frame.getContentPane().getComponents()) {
+                if (comp instanceof JComboBox && comp.getName() != null && comp.getName().equals("cmbProducto")) {
+                    cmbProducto = (JComboBox<String>) comp;
+                    break;
+                }
+            }
+            
+            if (txtNombre == null || txtPaterno == null || cmbProducto == null || txtNoPedido == null) {
+                JOptionPane.showMessageDialog(frame, "Faltan campos esenciales para generar el PDF", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
-            String direccionCompleta = txtDireccion.getText() + 
-                (txtColonia != null ? ", " + txtColonia.getText() : "");
-            
-            String nombreCompleto = txtNombre.getText() + 
-                (txtAPaterno != null ? " " + txtAPaterno.getText() : "") + 
-                (txtAMaterno != null ? " " + txtAMaterno.getText() : "");
-
-            crearPDFCompleto(
-                nombreCompleto,
-                direccionCompleta,
-                txtTelefono != null ? txtTelefono.getText() : "",
-                txtNoOrden != null ? txtNoOrden.getText() : "",
-                txtFecha != null ? txtFecha.getText() : "",
-                cbTienda != null ? cbTienda.getSelectedItem().toString() : "",
-                (DefaultTableModel) tablaProductos.getModel(),
-                lblTotal.getText()
+            Document document = new Document();
+            String fileName = "Pedido_" + new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date()) + ".pdf";
+            PdfWriter.getInstance(document, new FileOutputStream(fileName));
+        
+            document.open();
+          
+            // CONVERTIR Color de Swing a BaseColor de iText
+            BaseColor pdfColor = new BaseColor(
+            colorTitulo.getRed(), 
+            colorTitulo.getGreen(), 
+            colorTitulo.getBlue()
             );
+
+            com.itextpdf.text.Font titleFont = new com.itextpdf.text.Font(
+                com.itextpdf.text.Font.FontFamily.HELVETICA, 
+                18, 
+                com.itextpdf.text.Font.BOLD,
+                pdfColor
+            );
+
+            com.itextpdf.text.Font normalFont = new com.itextpdf.text.Font(
+                com.itextpdf.text.Font.FontFamily.HELVETICA, 
+                12, 
+                com.itextpdf.text.Font.NORMAL
+            );
+
+            com.itextpdf.text.Font boldFont = new com.itextpdf.text.Font(
+                com.itextpdf.text.Font.FontFamily.HELVETICA, 
+                12, 
+                com.itextpdf.text.Font.BOLD
+            );
+            // Título del PDF (usando propiedad)
+            Paragraph titulo = new Paragraph(this.tituloPDF, titleFont);
+            titulo.setAlignment(Element.ALIGN_CENTER);
+            titulo.setSpacingAfter(20);
+            document.add(titulo);
+
+            String nombreCompleto = txtNombre.getText() + " " + txtPaterno.getText() + 
+                                   (txtMaterno != null ? " " + txtMaterno.getText() : "");
+            
+            Paragraph saludo = new Paragraph("Estimado(a) " + nombreCompleto + ":", boldFont);
+            saludo.setSpacingAfter(10);
+            document.add(saludo);
+
+            String mensaje = "Muchas gracias por su compra de \"" + cmbProducto.getSelectedItem() + "\".\n\n" +
+                            "Detalles de su pedido:\n" +
+                            "- Número de pedido: " + txtNoPedido.getText() + "\n" +
+                            (txtDireccion != null ? "- Dirección de envío: " + txtDireccion.getText() + "\n" : "") +
+                            "- Producto: " + cmbProducto.getSelectedItem() + "\n" +
+                            (txtPrecio != null ? "- Total a pagar: " + txtPrecio.getText() + "\n" : "") +
+                            (txtTelefono != null ? "\nEn caso de cualquier duda, nos comunicaremos al: " + txtTelefono.getText() : "");
+
+            Paragraph contenido = new Paragraph(mensaje, normalFont);
+            contenido.setSpacingAfter(15);
+            document.add(contenido);
+
+            Paragraph despedida = new Paragraph(
+            "\n¡Gracias por preferirnos!\n\n" +
+            "Atentamente,\n" +
+            this.nombreTienda + "\n" + // Aquí el cambio
+            new SimpleDateFormat("dd/MM/yyyy").format(new Date()),
+            new com.itextpdf.text.Font(
+                com.itextpdf.text.Font.FontFamily.HELVETICA, 
+                10, 
+                com.itextpdf.text.Font.ITALIC
+            ));
+            despedida.setAlignment(Element.ALIGN_CENTER);
+            document.add(despedida);
+
+            document.close();
+            
+            JOptionPane.showMessageDialog(frame, 
+                "Comprobante generado exitosamente:\n" + fileName, 
+                "PDF Generado", 
+                JOptionPane.INFORMATION_MESSAGE);
 
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, 
-                "Error inesperado:\n" + ex.getMessage(),
-                "Error", JOptionPane.ERROR_MESSAGE);
+                "Error al generar PDF: " + ex.getMessage(), 
+                "Error", 
+                JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
         }
-}
-```
-Metodo que permite crear un archivo pdf con los datos recaudados del usuario. Se encarga de obtener la ventana(JFRAME) que contiene al botón, en caso de no encontrarlo, mostrara un mensaje de error. Posteriormente, utiliza utiliza varios métodos auxiliares para localizar campos específicos dentro de la interfaz gráfica (como nombre, dirección, productos, etc.). Valida que ciertos datos claves no estén vacios y ensambla todo los datos en un orden establecido. Finalmente llama al método crearPDFCompleto() para generar el documento PDF con toda la información recopilada.
+    }
 
-## buscarCampoPorNombreDeEtiqueta(Container parent, String labelName)
-
-```java
-private JTextField buscarCampoPorNombreDeEtiqueta(Container parent, String labelName) {
-        for (Component comp : parent.getComponents()) {
-            if (comp instanceof JLabel && ((JLabel)comp).getText().equals(labelName)) {
-                Container parentContainer = comp.getParent();
-                Component[] siblings = parentContainer.getComponents();
-                for (int i = 0; i < siblings.length - 1; i++) {
-                    if (siblings[i] == comp && siblings[i+1] instanceof JTextField) {
-                        return (JTextField) siblings[i+1];
-                    }
-                }
-            }
-            if (comp instanceof Container) {
-                JTextField found = buscarCampoPorNombreDeEtiqueta((Container) comp, labelName);
-                if (found != null) return found;
-            }
-        }
-        return null;
-}
-```
-Este método recorre  todos los componentes gráficos dentro del contenedor padre para encontrar un "JTextField" que esté directamente asociado con un "JLabel" cuyo texto coincida con el argumento "labelName".
-
-## buscarComboBox(Container parent)
-```java
-private JComboBox<String> buscarComboBox(Container parent) {
-        for (Component comp : parent.getComponents()) {
-            if (comp instanceof JComboBox) {
-                return (JComboBox<String>) comp;
-            }
-            if (comp instanceof Container) {
-                JComboBox<String> found = buscarComboBox((Container) comp);
-                if (found != null) return found;
+    private JTextField buscarTextField(Container container, String nombre) {
+        for (Component comp : container.getComponents()) {
+            if (comp instanceof JTextField && comp.getName() != null && comp.getName().equals(nombre)) {
+                return (JTextField) comp;
+            } else if (comp instanceof Container) {
+                JTextField encontrado = buscarTextField((Container) comp, nombre);
+                if (encontrado != null) return encontrado;
             }
         }
         return null;
     }
 ```
-Este método busca y retorna objetos tipo "combobox" que encuentre dentro del JFRAME, desde los cuales se extraen los datos selecccionados dentro de ellos.
-
-## encontrarTabla(Container parent)
-```java
-private JTable encontrarTabla(Container parent) {
-        for (Component comp : parent.getComponents()) {
-            if (comp instanceof JTable) {
-                return (JTable) comp;
-            }
-            if (comp instanceof Container) {
-                JTable found = encontrarTabla((Container) comp);
-                if (found != null) return found;
-            }
-        }
-        return null;
-}
-```
-Este método busca y retorna un objeto de tipo JTable dentro del JFRAME, desde la cual se extraen los productos que el cliente ordenó.
-
-## findLabelByText(Container parent, String text)
-```java
-private JLabel findLabelByText(Container parent, String text) {
-  for (Component comp : parent.getComponents()) {
-    if (comp instanceof JLabel && ((JLabel)comp).getText().startsWith(text)) {
-      return (JLabel) comp;
-  }
-  if (comp instanceof Container) {
-    JLabel found = findLabelByText((Container) comp, text);
-    if (found != null) return found;
-  }
-}
-  return null;
-}
-```
-Este método busca y retorna un objeto de tipo JLabel dentro del JFRAME, desde los cuales se extraen los datos introducidos dentro de ellos.
-
-## crearPDFCompleto(String nombre, String direccion, String telefono, String noOrden, String fecha, String tienda, DefaultTableModel modelo, String total)
-```java
-private void crearPDFCompleto(String nombre, String direccion, String telefono, String noOrden, String fecha, String tienda,DefaultTableModel modelo, String total) {
-  try {
-            String nombreArchivo = "Pedido_Pizza_" + new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date()) + ".pdf";
-            Document doc = new Document();
-            PdfWriter.getInstance(doc, new FileOutputStream(nombreArchivo));
-            doc.open();
-
-            
-            Font fontTitulo = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18);
-            Font fontSubtitulo = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 14);
-            Font fontNormal = FontFactory.getFont(FontFactory.HELVETICA, 12);
-
-            
-            try {
-                Image logo = Image.getInstance(getClass().getResource("/imagenes/logo_pizza.png"));
-                logo.scaleToFit(100, 100);
-                logo.setAlignment(Element.ALIGN_CENTER);
-                doc.add(logo);
-            } catch (Exception e) {
-                System.out.println("Logo no encontrado, se omite");
-            }
-
-            doc.add(new Paragraph("PIZZERÍA DELIZIOSA", fontTitulo));
-            doc.add(new Paragraph("COMPROBANTE DE PEDIDO", fontSubtitulo));
-            doc.add(Chunk.NEWLINE);
-
-           
-            doc.add(new Paragraph("DATOS DEL CLIENTE", fontSubtitulo));
-            doc.add(new Paragraph("Nombre: " + nombre, fontNormal));
-            doc.add(new Paragraph("Dirección: " + direccion, fontNormal));
-            if (!telefono.isEmpty()) doc.add(new Paragraph("Teléfono: " + telefono, fontNormal));
-            doc.add(Chunk.NEWLINE);
-
-            doc.add(new Paragraph("DETALLES DEL PEDIDO", fontSubtitulo));
-            if (!noOrden.isEmpty()) doc.add(new Paragraph("Número de orden: " + noOrden, fontNormal));
-            if (!fecha.isEmpty()) doc.add(new Paragraph("Fecha: " + fecha, fontNormal));
-            if (!tienda.isEmpty()) doc.add(new Paragraph("Tienda: " + tienda, fontNormal));
-            doc.add(Chunk.NEWLINE);
-
-            doc.add(new Paragraph("PRODUCTOS", fontSubtitulo));
-            PdfPTable tabla = new PdfPTable(3);
-            tabla.setWidthPercentage(100);
-            tabla.addCell(new Phrase("Cantidad", fontSubtitulo));
-            tabla.addCell(new Phrase("Producto", fontSubtitulo));
-            tabla.addCell(new Phrase("Precio", fontSubtitulo));
-            
-            for (int i = 0; i < modelo.getRowCount(); i++) {
-                tabla.addCell(new Phrase(modelo.getValueAt(i, 0).toString(), fontNormal));
-                tabla.addCell(new Phrase(modelo.getValueAt(i, 1).toString(), fontNormal));
-                tabla.addCell(new Phrase("$" + modelo.getValueAt(i, 2).toString(), fontNormal));
-            }
-            doc.add(tabla);
-            doc.add(Chunk.NEWLINE);
-
-            doc.add(new Paragraph("TOTAL: " + total, 
-                  new Font(Font.FontFamily.HELVETICA, 16, Font.BOLD)));
-            doc.add(Chunk.NEWLINE);
-            doc.add(new Paragraph("¡Gracias por su pedido!", fontTitulo));
-
-            doc.close();
-
-            if (Desktop.isDesktopSupported()) {
-                Desktop.getDesktop().open(new File(nombreArchivo));
-            }
-
-        } catch (Exception e) {
-            throw new RuntimeException("Error al crear PDF: " + e.getMessage());
-        }
-    }
-}
-```
-Método encargado de construir el documento PDF utilizando la biblioteca "iText". Crea un archivo con nombre personalizado, añade logotipos, encabezados y datos del cliente, seguido de una tabla de productos con sus cantidades y precios. Luego muestra el total del pedido y un mensaje final. 
+Método principal que genera el archivo PDF con los datos del formulario en la interfaz gráfica.
 
 # Video explicativo
 https://youtu.be/K6PsaPKJoDU?si=4Porj4kNKb9tt_M- 
